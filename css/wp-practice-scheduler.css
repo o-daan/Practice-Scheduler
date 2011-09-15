@@ -1,0 +1,73 @@
+@CHARSET "UTF-8";
+
+#wpbody-content #wp-practice-scheduler {
+    padding-right: 15px;
+}
+
+#wp-practice-scheduler .two-column label {
+    font-size: 0.7em;
+}
+
+#wp-practice-scheduler .short {
+    width: 45px;
+}
+#wp-practice-scheduler div.error {
+    border: 2px solid #F00;
+    background-color: #FABBE2;
+    padding: 10px;
+}
+
+#wp-practice-scheduler form fieldset {
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+#wp-practice-scheduler form fieldset legend {
+    color: #999;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+#wp-practice-scheduler div.two-column {
+    width: 48%;
+    float: left;
+    padding-right: 2%;
+}
+
+#wp-practice-scheduler div.three-column {
+    width: 32%;
+    float: left;
+    padding-right: 1%;
+}
+
+#wp-practice-scheduler div.select-date, #wp-practice-scheduler div.select-time {
+    width: 100%;
+    white-space:nowrap;
+    border: 1px solid transparent; 
+}
+
+#wp-practice-scheduler div.select-date a, #wp-practice-scheduler div.select-time a {
+    padding-right: 20px;
+    display: inline-block; 
+    height: 22px;
+}
+
+#wp-practice-scheduler div.select-date.selected,
+#wp-practice-scheduler div.select-time.selected {
+    /*background: url("/wp-content/plugins/wp-practice-scheduler/css/arrow-right.png") right 4px no-repeat;*/
+    background-color: #eee;
+    border: 1px solid #999; 
+}
+
+#wp-practice-scheduler div.select-date a.selected {
+    /*background-color: #eee;*/
+}
+
+#wp-practice-scheduler .ajax-progress {
+    color: #aaa;
+    font-size: 0.9em;
+    padding-left: 40px;
+    background: url("/wp-content/plugins/wp-practice-scheduler/css/progress.gif") 0px 0px no-repeat; 
+    height: 50px;
+}
