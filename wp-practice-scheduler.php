@@ -2,7 +2,7 @@
 /*
  Plugin Name: Practice Scheduler
  Plugin URI: http://www.qrafts.nl
- Version: 0.1
+ Version: 0.9
  Author: Daniel Oosterhuis - Atane Software
  Description: A plugin to facilitate making a doctor's appointment from within a WP site, using Google Calendar as a planning backend.
  */

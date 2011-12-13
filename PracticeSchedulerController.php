@@ -131,8 +131,10 @@ class PracticeSchedulerController {
         $titel = preg_match('/^m/i', $user->geslacht) ? "Dhr." : "Mevr.";
 
         $result = $api->addAppointmentToCalendar($appointment->startTime, $appointment->endTime,
-"Consult (via website)", "$titel $user->first_name $user->last_name
-Klacht: $appointment->complaint",
+"$titel $user->last_name ($user->geboortedatum)", "$titel $user->first_name $user->last_name
+Klacht: $appointment->complaint
+
+- Ingepland via website",
             "Praktijk");
         return $result;
     }
