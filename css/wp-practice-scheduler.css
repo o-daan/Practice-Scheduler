@@ -52,7 +52,7 @@
 #wp-practice-scheduler div.three-column {
     width: 32%;
     float: left;
-    padding-right: 1%;
+    padding: 0 1% 15px 0;
 }
 
 #wp-practice-scheduler div.select-date, #wp-practice-scheduler div.select-time {
