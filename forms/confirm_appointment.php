@@ -5,6 +5,7 @@
 $calendar = $calendars[$selectedDoctorId];
 $user = wp_get_current_user(); // get the logged in user
 ?>
+<img src="http://huisartsendeburgt.nl/wp-content/themes/deburgt/images/Scheduler-Timeline-4.gif" />
 <h3>Controleer uw gegevens</h3>
 <p>
 <strong>Arts:</strong> <?php echo $calendar['owner']?>

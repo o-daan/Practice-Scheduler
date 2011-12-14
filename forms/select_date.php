@@ -1,4 +1,5 @@
 <span>Huisarts: <?php echo $selectedDoctor['owner']; ?></span>
+<img src="http://huisartsendeburgt.nl/wp-content/themes/deburgt/images/Scheduler-Timeline-2.gif" />
 
 <form name="" action="<?php echo $postUrl; ?>" method="POST">
 <div class="three-column">

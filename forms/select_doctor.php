@@ -1,3 +1,4 @@
+<img src="http://huisartsendeburgt.nl/wp-content/themes/deburgt/images/Scheduler-Timeline-1.gif" />
 <h2>Selecteer uw arts</h2>
 <form name="" action="<?php echo $postUrl; ?>" method="POST">
 <input type="hidden" name="<?php echo PracticeSchedulerController::FORM_STEP_VAR; ?>" value="<?php echo $nextStep; ?>" />
@@ -9,5 +10,5 @@ foreach ($calendars as $calendar) {
 }
 
 ?>
-<p><input type="submit" value="Verder naar tijdstip kiezen" /></p>
+<p><input type="submit" value="Verder" /></p>
 </form>
