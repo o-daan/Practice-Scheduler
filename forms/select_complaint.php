@@ -1,3 +1,4 @@
+<img src="http://huisartsendeburgt.nl/wp-content/themes/deburgt/images/Scheduler-Timeline-3.gif" />
 <h2>Selecteer uw klacht</h2>
 <form name="" action="<?php echo $postUrl; ?>" method="POST">
 <input type="hidden" name="<?php echo PracticeSchedulerController::FORM_STEP_VAR; ?>" value="<?php echo $nextStep; ?>" />
