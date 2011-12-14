@@ -2,11 +2,9 @@
 error_reporting(E_ALL & ~ (E_NOTICE | E_DEPRECATED));
 
 require_once(dirname(dirname(__FILE__)) .'/PracticeSchedulerAPI.php');
+require_once(dirname(dirname(dirname(dirname(dirname($_SERVER["SCRIPT_FILENAME"])))))."/wp-config.php"); // UGLY? YES!!!! But this is an ajax request and WordPress sucks...
 
-require_once("../../../../wp-config.php"); // this is an ajax request
 $slotSize = get_option(PracticeSchedulerController::OPTION_SLOTSIZE, 10)*60; // seconds
-$openingHours = get_option(PracticeSchedulerController::OPTION_OPENINGHOURS_OPEN, "8:00");
-$closingHours = get_option(PracticeSchedulerController::OPTION_OPENINGHOURS_CLOSE, "16:30");
 $calendars = get_option(PracticeSchedulerController::OPTION_CALENDARS);
 $doctorId = $_REQUEST['doctorId'];
 $selectedDoctor = $calendars[$doctorId];
@@ -18,8 +16,8 @@ try {
     echo "Er is iets misgegaan. Probeer het opnieuw."; die;
 }
 $slots = array();
-$startTime = explode(':', $openingHours);
-$endTime = explode(':', $closingHours);
+$startTime = explode(':', $selectedDoctor['opensAt']);
+$endTime = explode(':', $selectedDoctor['closesAt']);
 
 $date = strtotime($_REQUEST['date']);
 $startTs = mktime($startTime[0], $startTime[1], 0, strftime('%m', $date), strftime('%d', $date), strftime('%Y', $date));

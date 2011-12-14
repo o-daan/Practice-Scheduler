@@ -47,16 +47,20 @@ class PracticeSchedulerAdminController {
             throw new PracticeSchedulerAdminException(__("De duur van het consult moet liggen tussen de 5 en 60 minuten", PracticeSchedulerController::I18N_NS));
         }
         if (is_array($_POST[PracticeSchedulerController::OPTION_CALENDARS])) {
-            $owners = $_POST[PracticeSchedulerController::OPTION_CALENDARS]['owner'];
-            $keys = $_POST[PracticeSchedulerController::OPTION_CALENDARS]['key'];
-            $emailaddresses = $_POST[PracticeSchedulerController::OPTION_CALENDARS]['email'];
+            $currentCalendars = get_option(PracticeSchedulerController::OPTION_CALENDARS);
+
             $calendars = array();
-            foreach ($owners as $id=>$owner) {
-                $key = $keys[$id];
-                $email = $emailaddresses[$id];
+            foreach ($_POST[PracticeSchedulerController::OPTION_CALENDARS] as $id=>$data) {
+                $owner = $data['owner'];
+                $email = $data['email'];
+                $key = $data['key'];
+                $availableDays = $data['availableDays'];
+                $opensAt = $data['opensAt'];
+                $closesAt = $data['closesAt'];
+                if (trim($key) == '') $key = $currentCalendars[$id]['key']; // no password change
                 if ($key != "" || $owner != "" || $email != "") {
-                    if ($id == 0) $id = $this->createId($email);
-                    $calendars [$id]= array('id'=>$id, 'owner'=>trim($owner), 'email'=>trim($email), 'key'=>trim($key));
+                    if ($id == 'NEW') $id = $this->createId($email);
+                    $calendars [$id]= array('id'=>$id, 'owner'=>trim($owner), 'email'=>trim($email), 'key'=>trim($key), 'availableDays'=>$availableDays, 'opensAt'=>trim($opensAt), 'closesAt'=>trim($closesAt));
                 }
             }
             update_option(PracticeSchedulerController::OPTION_CALENDARS, $calendars);

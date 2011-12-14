@@ -77,6 +77,8 @@ class PracticeSchedulerController {
                 break;
             case 2:
                 $form = 'select_date.php';
+                $availableDays = $this->getAvailableDays();
+                $selectedDoctor = $this->getSelectedDoctor();
                 $nextStep = 3;
                 break;
             case 1:
@@ -119,6 +121,20 @@ class PracticeSchedulerController {
         return $step;
     }
 
+    private function getAvailableDays() {
+        $daysAhead = get_option(PracticeSchedulerController::OPTION_DAYSAHEAD, 7);
+        $selectedDoctor = $this->getSelectedDoctor();
+        $schedule = $selectedDoctor['availableDays'];
+        $days = array();
+        for ($i=1; $i<=$daysAhead; $i++) {
+            $date = mktime(0,0,0,date('m'),date('d')+$i,date('Y'));
+            if (!in_array(strftime('%u', $date), $schedule)) continue; // doctor is not working on this day
+            $value = strftime('%Y-%m-%d', $date);
+            $days []= $value;
+        }
+        return $days;
+    }
+
     /**
      * Write the appointment to the calendar.
      */
@@ -139,14 +155,20 @@ Klacht: $appointment->complaint
         return $result;
     }
 
+    private function getSelectedDoctor() {
+        extract($this->getSubmittedData());
+        $doctors = get_option(self::OPTION_CALENDARS);
+        $doctor = $doctors[$selectedDoctorId];
+        return $doctor;
+    }
+
     /**
      * @return PracticeSchedulerAppointment
      */
     private function getAppointment() {
         extract($this->getSubmittedData());
-        $doctors = get_option(self::OPTION_CALENDARS);
+        $doctor = $this->getSelectedDoctor();
         $slotSize = get_option(self::OPTION_SLOTSIZE);
-        $doctor = $doctors[$selectedDoctorId];
 
         $appointment = new PracticeSchedulerAppointment();
         $appointment->doctor = (object)$doctor;

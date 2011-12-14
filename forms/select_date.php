@@ -1,20 +1,19 @@
+<span>Huisarts: <?php echo $selectedDoctor['owner']; ?></span>
+
 <form name="" action="<?php echo $postUrl; ?>" method="POST">
 <div class="three-column">
 <h3>Kies een datum</h3>
-<input type="hidden" name="<?php echo PracticeSchedulerController::FORM_STEP_VAR; ?>" value="<?php echo $nextStep; ?>" />
-<?php
-$daysAhead = get_option(PracticeSchedulerController::OPTION_DAYSAHEAD, 7);
-$ajaxUrl = PracticeSchedulerController::PLUGIN_PATH . '/forms/select_timeslot.php?';
-for ($i=1; $i<=$daysAhead; $i++) {
-    $date = mktime(0,0,0,date('m'),date('d')+$i,date('Y'));
-    if (PracticeSchedulerController::isWeekendDay($date)) continue;
-    $value = strftime('%Y-%m-%d', $date);
-    $selected = ($value == $selectedDate) ? "checked" : "";
-    echo '<div class="select-date"><input type="radio" name="date" value="'.$value.'" id="date_'.$value.'" '.$selected.' /> <label for="date_'.$value.'">'.ucfirst(strftime('%A %e %B', $date)).'</label></div>';
-}
+<input type="hidden"
+    name="<?php echo PracticeSchedulerController::FORM_STEP_VAR; ?>"
+    value="<?php echo $nextStep; ?>" /> <?php
+    $ajaxUrl = PracticeSchedulerController::PLUGIN_PATH . '/forms/select_timeslot.php?';
+    foreach ($availableDays as $date) {
+        $dateTs = strtotime($date);
+        $selected = ($value == $selectedDate) ? "checked" : "";
+        echo '<div class="select-date"><input type="radio" name="date" value="'.$date.'" id="date_'.$date.'" '.$selected.' /> <label for="date_'.$date.'">'.ucfirst(strftime('%A %e %B', $dateTs)).'</label></div>';
+    }
 
-?>
-</div>
+    ?></div>
 <div id="wp-practice-scheduler-available-timeslots" class="three-column">
 
 </div>

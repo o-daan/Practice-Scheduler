@@ -5,12 +5,26 @@
 }
 
 #wp-practice-scheduler .two-column label {
-    font-size: 0.7em;
+    font-size: 0.9em;
 }
 
 #wp-practice-scheduler .short {
     width: 45px;
 }
+
+#wpbody-content label {
+    margin: 5px 0px;
+    display: inline-block;
+    width: 110px;
+}
+
+#wpbody-content .optgroup label {
+    margin: 0px 5px 0px 5px;
+    font-weight: normal;
+    color: #777;
+    width: auto;
+}
+
 #wp-practice-scheduler div.error {
     border: 2px solid #F00;
     background-color: #FABBE2;

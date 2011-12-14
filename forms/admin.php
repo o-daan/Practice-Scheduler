@@ -1,3 +1,4 @@
+<?php require_once('utils.php'); ?>
 <link type="text/css" rel="stylesheet" href="<?php echo get_bloginfo('wpurl') ?>/wp-content/plugins/wp-practice-scheduler/css/wp-practice-scheduler.css" />
 <div id="wp-practice-scheduler">
     <div>
@@ -23,32 +24,43 @@ min<br />
 <label><?php echo __('Maximaal ', PracticeSchedulerController::I18N_NS)?></label>
 <input type="text" class="short" name="<?php echo PracticeSchedulerController::OPTION_DAYSAHEAD?>" value="<?php echo get_option(PracticeSchedulerController::OPTION_DAYSAHEAD, 7) ?>" />
 dagen vooruit plannen<br />
+<!--
 <label><?php echo __('Openingstijden', PracticeSchedulerController::I18N_NS)?></label>
 <input type="text" class="short" name="<?php echo PracticeSchedulerController::OPTION_OPENINGHOURS_OPEN?>" value="<?php echo get_option(PracticeSchedulerController::OPTION_OPENINGHOURS_OPEN, "8:30") ?>" />
 - <input type="text" class="short" name="<?php echo PracticeSchedulerController::OPTION_OPENINGHOURS_CLOSE?>" value="<?php echo get_option(PracticeSchedulerController::OPTION_OPENINGHOURS_CLOSE, "16:30") ?>" />
 uur
+-->
 </fieldset>
 <fieldset>
 <legend><?php echo __("Agenda's", PracticeSchedulerController::I18N_NS)?></legend>
 <?php
 $calendars = get_option(PracticeSchedulerController::OPTION_CALENDARS);
-$owners = get_option(PracticeSchedulerController::OPTION_OWNERS);
+//$owners = get_option(PracticeSchedulerController::OPTION_OWNERS);
 if (is_array($calendars)) {
     $i=1;
     foreach ($calendars as $id=>$calendar) {
-        echo '<label><strong>#'.($i++).'</strong></label>&nbsp;';
-        echo '<label>Naam</label> <input type="text" name="'.PracticeSchedulerController::OPTION_CALENDARS.'[owner]['.$id.']" value="'.$calendar['owner'].'" />&nbsp;
-                <label>E-mail</label><input type="text" name="'.PracticeSchedulerController::OPTION_CALENDARS.'[email]['.$id.']" value="'.$calendar['email'].'" />&nbsp;
-                <label>Wachtwoord</label><input type="password" name="'.PracticeSchedulerController::OPTION_CALENDARS.'[key]['.$id.']" value="'.$calendar['key'].'" /><br />';
+        $optVar = PracticeSchedulerController::OPTION_CALENDARS."[$id]";
+        $i++;
+        ?>
+        <label>Naam</label> <input type="text" name="<?php echo $optVar ?>[owner]" value="<?php echo $calendar['owner']; ?>" /><br />
+        <label>E-mail</label> <input type="text" name="<?php echo $optVar ?>[email]" value="<?php echo $calendar['email']; ?>" /><br />
+        <label>Wachtwoord</label> <input type="password" name="<?php echo $optVar ?>[key]" value="" /><br />
+        <label>Beschikbaar op</label> <?php psCreateOptionList('checkbox', $optVar ."[availableDays][]", array(1=>'maandag',2=>'dinsdag',3=>'woensdag',4=>'donderdag',5=>'vrijdag',6=>'zaterdag',7=>'zondag'), $calendar['availableDays'], false); ?><br />
+        <label>Openingstijden</label> <input type="text" class="short" name="<?php echo $optVar ?>[opensAt]" value="<?php echo $calendar['opensAt']; ?>" /> -
+                                <input type="text" class="short" name="<?php echo $optVar ?>[closesAt]" value="<?php echo $calendar['closesAt']; ?>" /><br />
+        <hr size="1" />
+        <?php
     }
 }
+$optVar = PracticeSchedulerController::OPTION_CALENDARS."[NEW]";
 echo '<br />';
-echo '<label><strong>'.__("Nieuwe agenda", PracticeSchedulerController::I18N_NS).'</strong></label>&nbsp;';
-echo '<label>Naam</label> <input type="text" name="'.PracticeSchedulerController::OPTION_CALENDARS.'[owner][]" value="" />&nbsp;
-        <label>E-mail</label><input type="text" name="'.PracticeSchedulerController::OPTION_CALENDARS.'[email][]" value="" />&nbsp;
-        <label>Wachtwoord</label><input type="password" name="'.PracticeSchedulerController::OPTION_CALENDARS.'[key][]" value="" /><br />';
-
-?>
+echo '<h3>'.__("Nieuwe agenda", PracticeSchedulerController::I18N_NS).'</h3>';
+echo '<label>Naam</label><input type="text" name="'.$optVar.'[owner]" value="" /><br />
+        <label>E-mail</label><input type="text" name="'.$optVar.'[email]" value="" /><br />
+        <label>Wachtwoord</label><input type="password" name="'.$optVar.'[key]" value="" /><br />';
+?>      <label>Beschikbaar op</label> <?php psCreateOptionList('checkbox', $optVar ."[availableDays][]", array(1=>'maandag',2=>'dinsdag',3=>'woensdag',4=>'donderdag',5=>'vrijdag',6=>'zaterdag',7=>'zondag'), array(1,2,3,4,5), false); ?><br />
+        <label>Openingstijden</label> <input type="text" class="short" name="<?php echo $optVar ."[opensAt]"; ?>" value="" /> -
+                                <input type="text" class="short" name="<?php echo $optVar ."[closesAt]"; ?>" value="" /><br />
 </fieldset>
 <fieldset>
 <legend><?php echo __("Klachtenlijst", PracticeSchedulerController::I18N_NS)?></legend>
